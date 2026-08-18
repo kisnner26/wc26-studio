@@ -2,7 +2,12 @@
 <html lang="es" data-theme="light" data-motion="on">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#f6f0e3" media="(prefers-color-scheme:light)"/>
+<meta name="theme-color" content="#17140f" media="(prefers-color-scheme:dark)"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="WC26 Studio"/>
 <title>WC26 Studio — Match Simulation Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,12 +35,12 @@ html[data-theme=dark]{
   --bg:linear-gradient(140deg,#080706,#14110c 60%,#1e180f);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);min-height:100vh;overflow-x:hidden;line-height:1.5}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);min-height:100vh;min-height:100dvh;overflow-x:hidden;line-height:1.5;-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
 button,input,select{font:inherit;color:var(--ink)}
 button,select,input{background:var(--paper2);border:2.5px solid var(--line);border-radius:var(--r-sm);padding:9px 14px;box-shadow:3px 4px 0 var(--shadow);font-weight:700;outline:none;}
 button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-button{cursor:pointer;transition:transform .1s,box-shadow .1s}
-button:hover{transform:translate(-1px,-2px);box-shadow:5px 7px 0 var(--shadow)}
+button{cursor:pointer;transition:transform .1s,box-shadow .1s;touch-action:manipulation}
+@media(hover:hover){button:hover{transform:translate(-1px,-2px);box-shadow:5px 7px 0 var(--shadow)}}
 button:active{transform:translate(1px,2px);box-shadow:1px 1px 0 var(--shadow)}
 button:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:3px 4px 0 var(--shadow)!important}
 select,input{box-shadow:2px 3px 0 var(--shadow)}
@@ -46,13 +51,13 @@ select,input{box-shadow:2px 3px 0 var(--shadow)}
 .big{font-size:16px;padding:13px 22px}
 
 /* ── LAYOUT ── */
-.mac-shell{display:grid;grid-template-columns:260px 1fr;gap:18px;min-height:100vh;padding:18px}
+.mac-shell{display:grid;grid-template-columns:260px 1fr;gap:18px;min-height:100vh;min-height:100dvh;padding:18px}
 
 /* ── SIDEBAR ── */
 .dock-panel{
-  position:sticky;top:18px;height:calc(100vh - 36px);
+  position:sticky;top:18px;height:calc(100vh - 36px);height:calc(100dvh - 36px);
   border:2.5px solid var(--line);border-radius:var(--r-xl);
-  background:rgba(246,240,227,.85);backdrop-filter:blur(18px);
+  background:rgba(246,240,227,.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   padding:18px;display:flex;flex-direction:column;gap:14px;
   box-shadow:4px 6px 0 var(--shadow);overflow:hidden;
 }
@@ -83,7 +88,7 @@ html[data-theme=dark] .dock-panel{background:rgba(23,20,15,.9)}
 /* ── TOPBAR ── */
 .topbar{
   display:flex;align-items:center;justify-content:space-between;gap:14px;
-  padding:18px 24px;background:rgba(246,240,227,.88);backdrop-filter:blur(14px);
+  padding:18px 24px;background:rgba(246,240,227,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border:2.5px solid var(--line);border-radius:var(--r-xl);box-shadow:4px 5px 0 var(--shadow);
   position:sticky;top:18px;z-index:10;flex-shrink:0;
 }
@@ -137,13 +142,14 @@ html[data-theme=dark] .paper-card::before{border-color:rgba(242,234,216,.08)}
 /* ── GROUPS ── */
 .filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:16px 20px;border-bottom:2px solid var(--beige)}
 .group-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:14px}
-.group-card{border:2.5px solid var(--line);border-radius:var(--r-lg);background:rgba(246,240,227,.78);box-shadow:3px 4px 0 var(--shadow);padding:14px}
+.group-card{border:2.5px solid var(--line);border-radius:var(--r-lg);background:rgba(246,240,227,.78);box-shadow:3px 4px 0 var(--shadow);padding:14px;min-width:0}
 html[data-theme=dark] .group-card{background:rgba(23,20,15,.82)}
 .group-card h3{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 8px}
-.group-team{display:grid;grid-template-columns:16px 26px 1fr;align-items:center;gap:7px;border-top:1.5px solid var(--beige);padding:8px 0}
+.group-team{display:grid;grid-template-columns:16px 26px minmax(0,1fr);align-items:center;gap:7px;border-top:1.5px solid var(--beige);padding:8px 0}
 .group-pos{font-family:var(--mono);font-size:10px;color:var(--muted)}
 .flag-lg{font-size:18px}
-.group-team-info strong{font-size:13px;font-weight:800;display:block;line-height:1.2}
+.group-team-info{min-width:0}
+.group-team-info strong{font-size:13px;font-weight:800;display:block;line-height:1.2;overflow-wrap:anywhere}
 .group-team-info small{font-family:var(--mono);font-size:9px;color:var(--muted)}
 
 /* ── SIMULATOR ── */
@@ -156,7 +162,8 @@ html[data-theme=dark] .group-card{background:rgba(23,20,15,.82)}
 #runtimeLabel{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:7px;display:block}
 
 /* ── TABLES ── */
-.table-wrap{overflow:auto;padding:0 14px 14px}
+.table-wrap{overflow:auto;padding:0 14px 14px;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.table-scroll{max-width:100%;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 table{width:100%;border-collapse:collapse;font-size:12px}
 th,td{padding:9px 8px;border-bottom:1.5px solid var(--beige);text-align:left;white-space:nowrap}
 th{font-family:var(--mono);text-transform:uppercase;font-size:10px;color:var(--muted)}
@@ -191,8 +198,8 @@ th:hover{color:var(--ink)}
 .squad-player-name{font-size:13px;font-weight:700}
 .squad-player-meta{font-family:var(--mono);font-size:10px;color:var(--muted)}
 /* Player modal */
-.player-modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center}
-.player-modal{background:var(--paper2);border:2.5px solid var(--line);border-radius:var(--r-xl);padding:24px;max-width:420px;width:90%;box-shadow:8px 10px 0 var(--shadow);position:relative}
+.player-modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))}
+.player-modal{background:var(--paper2);border:2.5px solid var(--line);border-radius:var(--r-xl);padding:24px;max-width:420px;width:90%;max-height:88dvh;overflow:auto;-webkit-overflow-scrolling:touch;box-shadow:8px 10px 0 var(--shadow);position:relative}
 .player-modal-close{position:absolute;top:12px;right:12px;background:var(--beige);border:none;border-radius:50%;width:28px;height:28px;font-size:14px;box-shadow:none;padding:0;cursor:pointer}
 .player-modal-top{display:flex;gap:16px;align-items:center;margin-bottom:16px}
 .player-modal-name{font-size:20px;font-weight:900;letter-spacing:-.5px;margin:0 0 3px}
@@ -299,7 +306,7 @@ th:hover{color:var(--ink)}
 .zone-hint{font-family:var(--mono);font-size:8px;color:rgba(255,255,255,.4);pointer-events:none}
 .pen-net-overlay{position:absolute;inset:0;pointer-events:none}
 /* Prediction update */
-.pred-champion-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;padding:14px;background:var(--paper3);border-radius:var(--r-md);border:2px solid var(--beige)}
+.pred-champion-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px;margin-bottom:16px;padding:14px;background:var(--paper3);border-radius:var(--r-md);border:2px solid var(--beige)}
 .pred-champion-pick label{font-size:11px;font-weight:700;color:var(--muted);display:block;margin-bottom:4px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em}
 .pred-champion-pick select{width:100%}
 /* Commentary */
@@ -468,7 +475,8 @@ html[data-theme=dark] .bm-card{background:var(--paper3)}
 
 /* ── SETTINGS ── */
 .settings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:14px}
-.setting-card{padding:20px;display:grid;gap:9px;align-content:start}
+.setting-card{padding:20px;display:grid;grid-template-columns:minmax(0,1fr);gap:9px;align-content:start;min-width:0}
+.setting-card select,.setting-card input{min-width:0;max-width:100%}
 .setting-card h3{font-size:15px;margin:0;font-weight:900;letter-spacing:-.3px}
 .setting-card label{display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:700}
 .setting-card small{font-family:var(--mono);font-size:10px;color:var(--muted)}
@@ -522,17 +530,69 @@ body.hide-elo td:nth-child(5),body.hide-elo th:nth-child(5){display:none}
   .settings-grid{grid-template-columns:1fr 1fr}
   .bet-hero-grid{grid-template-columns:repeat(3,1fr)}
 }
-@media(max-width:800px){
-  .mac-shell{grid-template-columns:1fr}
-  .dock-panel{position:static;height:auto;flex-direction:row;flex-wrap:wrap;border-radius:var(--r-lg)}
+@media(max-width:800px),(max-height:520px) and (orientation:landscape){
+  /* El shell deja de ser grid para que la barra de navegación pueda ser sticky */
+  .mac-shell{
+    display:block;min-height:0;padding:12px;
+    padding-top:max(12px,env(safe-area-inset-top));
+    padding-left:max(12px,env(safe-area-inset-left));
+    padding-right:max(12px,env(safe-area-inset-right));
+    padding-bottom:max(16px,env(safe-area-inset-bottom));
+  }
+  .workspace{margin-top:12px}
+  /* Barra superior: logo + pestañas con scroll horizontal */
+  .dock-panel{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:40;height:auto;overflow:visible;
+    flex-direction:row;flex-wrap:nowrap;align-items:center;gap:10px;
+    padding:8px 10px;border-radius:var(--r-lg);
+  }
+  .traffic{display:none}
+  .brand-mark{flex-shrink:0;gap:8px}
+  .brand-logo{width:38px;height:38px;font-size:21px;border-radius:11px;box-shadow:2px 3px 0 var(--shadow)}
+  .brand-text{display:none}
+  .dock-nav{
+    display:flex;flex:1;min-width:0;gap:6px;
+    overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;
+  }
+  .dock-nav::-webkit-scrollbar{display:none}
+  .nav-item{
+    flex:0 0 auto;white-space:nowrap;scroll-snap-align:center;
+    font-size:12px;padding:10px 14px;min-height:42px;border-color:var(--beige);
+  }
   .dock-status{display:none}
+  .topbar{position:static;padding:14px 16px;border-radius:var(--r-lg)}
   .cards-grid{grid-template-columns:repeat(2,1fr)}
   .home-grid,.two-col{grid-template-columns:1fr}
-  .hero-macos{grid-template-columns:1fr}
+  .hero-macos{grid-template-columns:1fr;min-height:0;padding:20px}
+  .hero-copy h2{font-size:40px;margin-bottom:14px}
   .group-grid{grid-template-columns:repeat(2,1fr)}
   .podium-row{grid-template-columns:1fr 1fr}
   .bet-hero-grid{grid-template-columns:1fr 1fr}
   .settings-grid{grid-template-columns:1fr}
+  /* iOS hace zoom al enfocar campos con menos de 16px */
+  input,select,textarea,.pred-pick-label select,.pred-champion-pick select{font-size:16px}
+  .pred-champion-row{grid-template-columns:1fr;padding:12px}
+  .pred-champion-pick{min-width:0}
+  .pred-champion-pick select{min-width:0;width:100%}
+  .pred-pick-label select{padding:8px 10px}
+  /* Objetivos táctiles cómodos (44px, guía de Apple) */
+  button,select,.game-tab{min-height:44px}
+  .player-modal-close{min-height:0}
+  .seg-btn{white-space:normal}
+}
+@media(max-width:560px){
+  .cards-grid{grid-template-columns:1fr 1fr}
+  .group-grid{grid-template-columns:1fr}
+  .podium-row{grid-template-columns:1fr}
+  .bet-hero-grid{grid-template-columns:1fr}
+  .games-hub-header{flex-direction:column;align-items:flex-start;gap:8px}
+  .game-content{padding:16px}
+  .trivia-opts{grid-template-columns:1fr}
+  .pred-groups-grid{grid-template-columns:1fr}
+  #viewTitle{font-size:28px}
+  .hero-copy h2{font-size:33px}
+  .games-hub-header h2,.game-header h2{font-size:26px}
 }
 /* ── GAMES ── */
 .games-hub{padding:0;overflow:hidden}
@@ -557,8 +617,8 @@ body.hide-elo td:nth-child(5),body.hide-elo th:nth-child(5){display:none}
 .pred-group-team{font-size:12px;padding:3px 0;border-bottom:1px solid var(--beige);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pred-pick-label{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-top:8px}
 .pred-pick-label select{width:100%;margin-top:3px;font-size:11px;padding:5px 8px;border-radius:8px}
-.pred-champion-pick{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.pred-champion-pick select{font-size:13px;min-width:200px}
+.pred-champion-pick{display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-width:0}
+.pred-champion-pick select{font-size:13px;min-width:0;flex:1 1 150px;max-width:100%}
 .pred-champ-display{font-size:15px;font-weight:900}
 .pred-compare-box{border:2.5px solid var(--ink);border-radius:var(--r-md);padding:14px 16px;background:var(--paper3);box-shadow:3px 4px 0 var(--shadow);margin-top:14px}
 .pred-compare-box h4{margin:0 0 10px;font-size:14px}
@@ -629,6 +689,22 @@ body.hide-elo td:nth-child(5),body.hide-elo th:nth-child(5){display:none}
 .disappointment-note{font-family:var(--mono);font-size:10px;color:var(--muted);margin:10px 0 0}
 .player-photo-fallback{vertical-align:middle}
 @media(max-width:760px){.disappointment-grid{grid-template-columns:1fr}.disappointment-card h3{font-size:23px}}
+/* ── AJUSTES FINALES PARA MÓVIL / iOS (van al final para ganar en cascada) ── */
+#bankrollInput{width:100px;font-size:13px;padding:5px 8px}
+@media(max-width:800px),(max-height:520px) and (orientation:landscape){
+  /* Cualquier campo por debajo de 16px provoca zoom automático en iOS */
+  input,select,textarea,
+  .pred-pick-label select,.pred-champion-pick select,
+  .pred-group-pick,#bankrollInput{font-size:16px}
+  #bankrollInput{width:100%;max-width:150px;min-height:44px}
+  .arcade-replay{min-height:44px}
+  .pred-champion-pick select,.pred-pick-label select{min-height:44px}
+}
+@media(max-height:520px) and (orientation:landscape){
+  .dock-panel{position:static}
+  .hero-macos{min-height:0}
+  #threeStage,.three-wrap{min-height:200px;height:200px}
+}
 </style>
 </head>
 <body>
@@ -886,7 +962,7 @@ body.hide-elo td:nth-child(5),body.hide-elo th:nth-child(5){display:none}
           <h3 data-i18n="title_betting">Sala de apuestas</h3>
           <label style="font-family:var(--mono);font-size:10px;color:var(--muted);display:flex;align-items:center;gap:6px">
             <span data-i18n="bankroll">Banca</span>: <span style="font-weight:900">$</span>
-            <input type="number" id="bankrollInput" value="1000" min="10" step="100" style="width:90px;font-size:13px;padding:5px 8px">
+            <input type="number" id="bankrollInput" value="1000" min="10" step="100">
           </label>
         </div>
         <div id="bettingSummary"></div>
