@@ -66,11 +66,12 @@ function renderModelAudit(loadReport=null){
 
   box.innerHTML=`
     <h3>${labels.title} <span style="font-size:11px;font-family:var(--mono);color:var(--muted)">${DATA_QUALITY_VERSION}</span></h3>
-    <div style="display:grid;gap:10px;font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--ink)">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:10px;font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--ink)">
       <div><b>${labels.data}:</b> ${overrideStatus} · <b>${labels.source}:</b> ${loadReport?.source||'static bundled data'}</div>
       <div>
         <b>${labels.back}</b>
-        <table style="width:100%;border-collapse:collapse;margin-top:4px;font-size:11px">
+        <div class="table-scroll">
+        <table style="width:100%;min-width:340px;border-collapse:collapse;margin-top:4px;font-size:11px">
           <thead><tr style="color:var(--muted);border-bottom:1px solid var(--border)">
             <th style="text-align:left;padding:2px 6px 2px 0">Año</th>
             <th style="text-align:left;padding:2px 6px">Top modelo</th>
@@ -88,6 +89,7 @@ function renderModelAudit(loadReport=null){
             <td></td>
           </tr></tfoot>
         </table>
+        </div>
       </div>
       <div style="color:var(--muted)"><b>${labels.note}:</b> ${audit.note}</div>
       ${sourceLinks ? `<div style="color:var(--muted);font-size:11px"><b>${labels.sources}:</b> ${sourceLinks}</div>` : ''}

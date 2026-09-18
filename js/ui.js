@@ -108,6 +108,16 @@ export function navigate(view){
   document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active', b.dataset.view===view));
   const titleEl=document.querySelector('#viewTitle');
   if(titleEl) titleEl.textContent = (TXT[currentLang]||TXT.en)[`title_${view}`] || '';
+  // En móvil la navegación es una barra horizontal: centramos la pestaña activa
+  // y volvemos arriba para no quedar a mitad de la vista anterior.
+  const activeTab=document.querySelector(`.dock-nav .nav-item[data-view="${view}"]`);
+  const nav=document.querySelector('.dock-nav');
+  if(activeTab && nav && nav.scrollWidth>nav.clientWidth+1){
+    activeTab.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+  }
+  if(window.matchMedia('(max-width:800px)').matches){
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
   animateNewContent();
 }
 
