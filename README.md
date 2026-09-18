@@ -2,6 +2,9 @@
 
 Simulador profesional del Mundial 2026 con Monte Carlo, modelo estadístico multifactor y partidos arcade 2D.
 
+[**pruébalo en vivo**](https://kisnner26.github.io/wc26-studio/) — corre
+directo en el navegador, sin instalar nada.
+
 ![Panel principal de WC26 Studio](docs/images/wc26-dashboard.jpg)
 
 ## Características
@@ -13,6 +16,7 @@ Simulador profesional del Mundial 2026 con Monte Carlo, modelo estadístico mult
 - Partido visual arcade con 22 jugadores, pases, disparos, atajadas, goles y repeticiones.
 - Probabilidades de campeón, equipo revelación y premios individuales.
 - Retratos de jugadores con identidad estable, caché y fallback seguro.
+- Interfaz responsive, usable en iPhone (nav táctil, sin overflow).
 
 ## Partido arcade 2D
 
